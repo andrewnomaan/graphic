@@ -33,4 +33,31 @@
          <?php
       }
   }
+  if(isset($_POST['graphic_id'])){
+    $content=get_safe_value($conn,$_POST['content']);
+    $scheduled_date=get_safe_value($conn,$_POST['schedule_date']);
+    $schedule_time=get_safe_value($conn,$_POST['schedule_time']);
+    $con=$date=$time=0;
+    $er=0;
+    $msg="";
+    if($content==""){
+      $msg="*Required field";
+      $con=1;
+      $er++;
+    }
+    if($scheduled_date==""){
+      $msg="*Required field";
+      $date=1;
+      $er++;
+    }
+    if($schedule_time==""){
+      $msg="*Required field";
+      $time=1;
+      $er++;
+    }
+    if($er!=0){
+      echo json_encode(['con'=>$con,'date'=>$date,'time'=>$time,'msg'=>$msg]);
+    }
+   exit;
+  }
 ?>
