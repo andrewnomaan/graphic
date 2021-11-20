@@ -39,21 +39,33 @@
                                 <h5 class="card-title">Uploaded Photo / Video</h5>
                                 <div class="card align-items-center p-3">
                                     <?php
+                                    if(isset($_GET['post']) && $_GET['post']!=''){
+                                        $sql="SELECT * FROM graphics where id='$_GET[post]'";
+                                        $res_query=mysqli_query($conn,$sql);
+                                        $row=mysqli_fetch_assoc($res_query);
+                                    }
+                                    else{
                                      $sql="SELECT * FROM graphics ORDER BY id DESC LIMIT 1";
                                       $res_query=mysqli_query($conn,$sql);
                                       $row=mysqli_fetch_assoc($res_query);
+                                    }
                                     ?>
                                     <img src="assets/img/<?php echo $row['graphic'] ?>" class="img-fluid" alt="">
-                                    <p class="card-text mt-3">Item Name</p>
+                                    <?php
+                                      $arr2=explode('.',$row['graphic']);
+                                      $product_name2=$arr2[0];
+                                    ?>
+                                    <p class="card-text mt-3"><?php echo $product_name2 ?></p>
                                     <div class="row">
                                         <div class="col-md-6 col-6">
                                             <div id="check"></div>
                                            <a href="action.php?delete=<?php echo $row['id'] ?>" id="delete_graphic" class="btn btn-danger mb-2">Delete</a>
                                         </div>
-                                        <div class="col-md-6 col-6">
-                                            <button type="submit" class="btn btn-success mb-2">Replace</button>
-
-                                        </div>
+                                        <!-- <div class="col-md-6 col-6"> -->
+                                            <!-- <button type="text" class="btn btn-success mb-2 file_input_replacement">Replace</button> -->
+                                            <!-- <input type="file" id="file" style="display:none;">
+                                            <label for="file" class="btn btn-success mb-2 file_input_replacement">Replace</label>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
