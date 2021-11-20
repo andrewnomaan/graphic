@@ -9,11 +9,26 @@
                             ?>
             <div class="col-md-3 mb-3">
                 <div class="card p-2 align-items-center text-center">
-                    <form action="">
                         <img src="assets/img/<?php echo $row['graphic'] ?>" class="img-fluid" alt="">
-                        <p class="card-text mt-2">Image Name</p>
-                        <button type="submit" class="btn btn-primary mb-2">Add to Post</button>
-                    </form>
+                        <?php
+                          $arr=explode('.',$row['graphic']);
+                          $product_name=$arr[0];
+                        ?>
+                        <p class="card-text mt-2"><?php echo $product_name ?></p>
+                        <?php
+                          $ex=explode('/',$_SERVER['SCRIPT_NAME']);
+                          if($ex[count($ex)-1]=='schedulepost.php')
+                          {
+                        ?>
+                        <a href="schedulepost.php?post=<?php echo $row['id'];?>" class="btn btn-primary mb-2">Add to Post</a>
+                        <?php
+                          }
+                          else{
+                        ?>
+                        <a href="createpost.php?post=<?php echo $row['id'];?>" class="btn btn-primary mb-2">Add to Post</a>
+                        <?php
+                          }
+                        ?>
                 </div>
             </div>
             <?php
