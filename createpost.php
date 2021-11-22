@@ -33,7 +33,10 @@
            ?>
             <div class="row ">
                 <div class="card">
-                    <form action="" method="post">
+                <div class="alert alert-danger hidden already" role="alert" id="already">
+                                        <b></b>
+                 </div>
+                    <form action="action.php" method="post" id="create_post">
                         <div class="row mb-3">
                             <div class="col-md-4 mb-4 text-center">
                                 <h5 class="card-title">Uploaded Photo / Video</h5>
@@ -55,11 +58,11 @@
                                       $arr2=explode('.',$row['graphic']);
                                       $product_name2=$arr2[0];
                                     ?>
+                                    <input type="hidden" name="graphic" value="<?php echo $row['graphic_id'] ?>">
                                     <p class="card-text mt-3"><?php echo $product_name2 ?></p>
                                     <div class="row">
                                         <div class="col-md-6 col-6">
                                             <div id="check"></div>
-                                           <a href="action.php?delete=<?php echo $row['id'] ?>" id="delete_graphic" class="btn btn-danger mb-2">Delete</a>
                                         </div>
                                         <!-- <div class="col-md-6 col-6"> -->
                                             <!-- <button type="text" class="btn btn-success mb-2 file_input_replacement">Replace</button> -->
@@ -73,15 +76,19 @@
                             <div class="col-md-8">
                                 <h5 class="card-title text-center">Content</h5>
                                 <div class="card">
+                                <div class="alert alert-success hidden scheduled" role="alert" id="scheduled">
+                                        <b></b>
+                                    </div>
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12 my-4">
-                                                <textarea name="" id="" class="form-control" rows="6" placeholder="Write your comment"></textarea>
+                                                <textarea name="content" id="" class="form-control" rows="6" placeholder="Write your comment"></textarea>
+                                                <div id="content_err" style="color:red;"></div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12 text-center">
-                                                <button type="submit" class="btn btn-primary">Forward Post</button>
+                                                <button type="submit" name="create_post" class="btn btn-primary">Forward Post</button>
                                             </div>
                                         </div>
                                     </div>
