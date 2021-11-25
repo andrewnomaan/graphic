@@ -24,3 +24,4 @@ $bottom_assets="";
     <!-- Template Main JS File -->
     <script src="<?php echo $bottom_assets ?>assets/js/main.js"></script>
     <script src="<?php echo $bottom_assets ?>assets/js/add_graphic.js"></script>
+    <script src="<?php echo $bottom_assets ?>assets/js/search.js"></script>
