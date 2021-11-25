@@ -8,7 +8,7 @@
   </li><!-- End Dashboard Nav -->
 
   <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" >
+    <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
       <i class="fab fa-creative-commons-sampling-plus"></i><span>Approval</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
     <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">

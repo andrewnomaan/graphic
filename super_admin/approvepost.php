@@ -41,7 +41,7 @@ require '../top.php';
                 <div class="card">
                 <?php 
                             $query_approve_post="SELECT post.*,graphic FROM post,graphics
-                            where graphics.id = post.graphic_id and post.approve_admin=0 and post.disapprove=0;";
+                            where graphics.id = post.graphic_id and post.approve_admin=0 and post.disapprove=0 order by date desc;";
                              $res_approve=mysqli_query($conn,$query_approve_post);
                              while($row=mysqli_fetch_assoc($res_approve)){
                             ?>
