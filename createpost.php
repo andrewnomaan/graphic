@@ -58,7 +58,7 @@
                                       $arr2=explode('.',$row['graphic']);
                                       $product_name2=$arr2[0];
                                     ?>
-                                    <input type="hidden" name="graphic" value="<?php echo $row['graphic_id'] ?>">
+                                    <input type="hidden" name="graphic" value="<?php echo $row['id'] ?>">
                                     <p class="card-text mt-3"><?php echo $product_name2 ?></p>
                                     <div class="row">
                                         <div class="col-md-6 col-6">
