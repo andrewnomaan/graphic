@@ -31,10 +31,12 @@
                include 'upload_form.php';
                include 'graphics_library.php';
             ?>
+
                     
         </section>
 
     </main><!-- End #main -->
+    
 
     <!-- ======= Footer ======= -->
     <?php
