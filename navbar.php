@@ -68,7 +68,7 @@
                 <img src="assets/img/<?php echo $row['graphic'] ?>" class="img-fluid" alt="">
               </div>
               <div class="col-md-8">
-                <p><?php echo $row['content'] ?></p>
+                <p><?php echo "Only ".$rem_time." days left"; ?></p>
               </div>
             </div>
           </li>
