@@ -46,30 +46,38 @@ if(mysqli_num_rows($res_approve)>0){
                          exit;
                       }
                     ?>
-                <div class="card">
-                    <form action="" method="post">
-                        <div class="row mb-3">
-                        <?php
+                    <div class="card">
+                        <form action="" method="post">
+                            <div class="row mb-3">
+                                <?php
                         while($row=mysqli_fetch_assoc($res_approve)){
                    ?>
-                            <div class="col-md-4 my-4 text-center">
-                                <div class="card align-items-center p-3">
-                                    <img src="assets/img/<?php echo $row['graphic'] ?>" class="img-fluid" alt="">
-                                    <h5 class="card-title"><?php 
+                                <div class="col-md-4 my-4 text-center">
+                                    <div class="card align-items-center p-3">
+                                        <img src="assets/img/<?php echo $row['graphic'] ?>" class="img-fluid" alt="">
+                                        <h5 class="card-title"><?php 
                                     $ext=explode('.',$row['graphic']);
                                     echo $ext[count($ext)-2]; 
                                     ?></h5>
-                                    <p class="card-text"><?php echo $row['content'] ?></p>
-                                    <a href="" class="btn btn-primary">Post on facebook</a>
+                                        <p class="card-text"><?php echo $row['content'] ?></p>
+                                        <!-- <a href="new.php?link=http://localhost/gms/graphic/assets/img/<?php echo $row['graphic'] ?>" class="btn btn-primary">Post on facebook</a> -->
+                                        <iframe src="https://www.facebook.com/plugins/share_button.php/?href=http://localhost/gms/graphic/assets/img/BalMithai1456825390.jpg/&layout=button_count&size=small&appId=440232214378294&width=77&height=20" width="77" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                                        <!-- <a target="_blank"
+                                            href="https://www.facebook.com/sharer/sharer.php">
+                                            <img src="http://trial/new_img/facebook_link.png"
+                                                style=" border: 1px solid #d9d9d9; box-shadow: 0 4px 7px 0 #a5a5a5; padding: 5px;"
+                                                title="facebook_link" alt="facebook_link" />
+
+                                        </a> -->
+                                    </div>
                                 </div>
-                            </div>
-                            <?php
+                                <?php
                         }
                     ?>
-                        </div>
-                    </form>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
         </section>
 
     </main><!-- End #main -->
