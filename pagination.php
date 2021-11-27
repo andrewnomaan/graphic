@@ -22,19 +22,18 @@ while($row=mysqli_fetch_assoc($result_query)){
                         ?>
                     <p class="card-text mt-2"><?php echo $product_name ?></p>
                     <?php
-                          $ex=explode('/',$_SERVER['SCRIPT_NAME']);
-                          if($ex[count($ex)-1]=='schedulepost.php')
-                          {
-                        ?>
+                      if($_GET['forward']=='schedulepost.php'){
+                    ?>
                     <a href="schedulepost.php?post=<?php echo $row['id'];?>" class="btn btn-primary mb-2">Add to
                         Post</a>
-                    <?php
-                          }
-                          else{
+                        <?php
+                      }
+                        else{
                         ?>
-                    <a href="createpost.php?post=<?php echo $row['id'];?>" class="btn btn-primary mb-2">Add to Post</a>
-                    <?php
-                          }
+                          <a href="createpost.php?post=<?php echo $row['id'];?>" class="btn btn-primary mb-2">Add to
+                        Post</a>
+                        <?php
+                        }
                         ?>
                 </div>
             </div>
