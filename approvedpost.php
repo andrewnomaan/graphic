@@ -3,7 +3,7 @@ require 'db_connect.php';
 require 'top.php';
 $post=0;
 $query_approve_post="SELECT post.*,graphic FROM post,graphics
-where graphics.id = post.graphic_id and post.approve_admin=1 and post.admin_delete=0;";
+where graphics.id = post.graphic_id and post.approve_admin=1 and post.disapprove=0 order by date asc;";
 $res_approve=mysqli_query($conn,$query_approve_post);
 if(mysqli_num_rows($res_approve)>0){
     $post=1;
@@ -45,7 +45,11 @@ if(mysqli_num_rows($res_approve)>0){
                          echo "<b>Approved post is not available</b>"; 
                          exit;
                       }
+                      else{
+                        echo "<b>Approved post</b>";
+                      }
                     ?>
+                    </div>
                     <div class="card">
                         <form action="" method="post">
                             <div class="row mb-3">
@@ -60,15 +64,17 @@ if(mysqli_num_rows($res_approve)>0){
                                     echo $ext[count($ext)-2]; 
                                     ?></h5>
                                         <p class="card-text"><?php echo $row['content'] ?></p>
+                                        <?php
+                                          if($row['scheduled_date']!='0000-00-00')
+                                          {
+                                        ?>
+                                         <p class="card-text"><b>Scheduled on:</b><?php echo $row['scheduled_date'] ?></p>
+                                         <?php
+                                          }
+                                         ?>
                                         <!-- <a href="new.php?link=http://localhost/gms/graphic/assets/img/<?php echo $row['graphic'] ?>" class="btn btn-primary">Post on facebook</a> -->
-                                        <iframe src="https://www.facebook.com/plugins/share_button.php/?href=http://localhost/gms/graphic/assets/img/BalMithai1456825390.jpg/&layout=button_count&size=small&appId=440232214378294&width=77&height=20" width="77" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-                                        <!-- <a target="_blank"
-                                            href="https://www.facebook.com/sharer/sharer.php">
-                                            <img src="http://trial/new_img/facebook_link.png"
-                                                style=" border: 1px solid #d9d9d9; box-shadow: 0 4px 7px 0 #a5a5a5; padding: 5px;"
-                                                title="facebook_link" alt="facebook_link" />
-
-                                        </a> -->
+                                        <!-- <iframe src="https://www.facebook.com/plugins/share_button.php/?href=http://localhost/gms/graphic/assets/img/BalMithai1456825390.jpg/&layout=button_count&size=small&appId=440232214378294&width=77&height=20" width="77" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe> -->
+                                            <a href="https://www.facebook.com/v11.0/dialog/oauth?client_id=1314409385378233&state=f625e1fc59a666edf82f3048171c3389&response_type=code&sdk=php-sdk-5.7.0&redirect_uri=https%3A%2F%2Fpostoplan.app%2Fuser%2Fcallback%2Ffacebook_pages&scope=pages_manage_metadata%2Cpages_read_engagement%2Cpages_read_user_content%2Cpages_manage_posts%2Cpages_manage_engagement%2Cread_insights%2Cpages_show_list%2Cpages_messaging">Share</a>
                                     </div>
                                 </div>
                                 <?php
@@ -76,7 +82,6 @@ if(mysqli_num_rows($res_approve)>0){
                     ?>
                             </div>
                         </form>
-                    </div>
                 </div>
         </section>
 
