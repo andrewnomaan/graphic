@@ -19,10 +19,10 @@
   <nav aria-label="...">
   <ul class="pagination">
     
-    <li class="page-item">
+    <!-- <li class="page-item">
       <a class="page-link previous" href="javaScript:void(0);" tabindex="-1">Previous</a>
     </li>
-    
+     -->
     <?php
       //  }
        for ($i=1; $i<=$total_pages; $i++) {   
@@ -39,9 +39,23 @@
       }
     }
     ?>
-    <li class="page-item">
+    <?php
+       $ex=explode('/',$_SERVER['SCRIPT_NAME']);
+       if($ex[count($ex)-1]=='schedulepost.php')
+       {
+         ?>
+         <input type="hidden" id="script" value="'.$ex[count($ex)-1].'">
+         <?php
+       }
+       else{
+         ?>
+       <input type="hidden" id="script" value="createpost.php">
+       <?php
+       }
+    ?>
+    <!-- <li class="page-item">
       <a class="page-link" href="javascript:void(0)">Next</a>
-    </li>
+    </li> -->
     
   </ul>
 </nav>
@@ -53,15 +67,18 @@
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script>
 	$(document).ready(function() {
-		$("#paginate_content").load("pagination.php?page=1");
+    var forward = $('#script').val();
+		$("#paginate_content").load(`pagination.php?page=1&forward=${forward}`);
 		$(".page-link").click(function(){
 			var id = $(this).attr("data-id");
 			var select_id = $(this).parent().attr("id");
+			var forward = $('#script').val();
 			$.ajax({
 				url: "pagination.php",
 				type: "GET",
 				data: {
-					page : id
+					page : id,
+          forward:forward
 				},
 				cache: false,
 				success: function(dataResult){
