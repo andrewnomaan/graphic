@@ -44,7 +44,7 @@
        if($ex[count($ex)-1]=='schedulepost.php')
        {
          ?>
-         <input type="hidden" id="script" value="'.$ex[count($ex)-1].'">
+         <input type="hidden" id="script" value="schedulepost.php">
          <?php
        }
        else{
