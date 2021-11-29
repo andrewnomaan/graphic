@@ -28,39 +28,65 @@
 
     <li class="nav-item dropdown">
     <?php
+         $count=0;
           $d=date("Y-m-d", strtotime('+5 days'));
           $t_d=date("Y-m-d");
+          $rem_time="";
+          $res_not="";
+          $ct=mysqli_query($conn,"SELECT count(*) from notification");
+          $row_ct=mysqli_fetch_array($ct);
+          $count=$row_ct[0];
+          if($count>0){
           // echo $d;
-            $sql="SELECT post.*,graphics.graphic FROM post,graphics where post.graphic_id=graphics.id and scheduled_date<'$d' and scheduled_date>'$t_d'";
+            // $sql="SELECT post.*,graphics.graphic FROM post,graphics where post.graphic_id=graphics.id and scheduled_date<'$d' and scheduled_date>='$t_d'";
+            $sql="SELECT * from notification where scheduled_note=1 and scheduled_dt<'$d' and scheduled_dt>='$t_d'";
             $res=mysqli_query($conn,$sql);
-            $row=mysqli_fetch_assoc($res);
-            // echo date("Y-m-d");
-            $x=explode("-",date("Y-m-d"));
-            $y=explode("-",$row['scheduled_date']);
-             $rem_time=$y[2]-$x[2];
-            //  echo $rem_time;
-            // print_r($row);
-            $count=mysqli_query($conn,"SELECT COUNT(*) FROM post where scheduled_date<'$d' and scheduled_date>'$t_d'");
-            $row1=mysqli_fetch_array($count);
+            $sql_disapprove="SELECT * from notification where disapprove_note=1";
+            $res_disapprove=mysqli_query($conn,$sql_disapprove);
+            $row_not=mysqli_fetch_array($res);
+            if(mysqli_num_rows($res)>0){
+            $sql_notification="SELECT post.*,graphics.graphic FROM post,graphics where post.id='$row_not[post_id]' and post.graphic_id=graphics.id and scheduled_date<'$d' and scheduled_date>='$t_d'";
+            $res_not=mysqli_query($conn,$sql_notification);
+            if(mysqli_num_rows($res_not)>0){
+            $row=mysqli_fetch_assoc($res_not);
+            $start_date = strtotime($row['scheduled_date']);
+            $end_date = strtotime(date("Y-m-d"));
+             $rem_time=($start_date-$end_date)/60/60/24;
+            }
+            }
+            $row_dis_not=mysqli_fetch_array($res_disapprove);
+            if(mysqli_num_rows($res_disapprove)>0){
+            $sql_disapprove_notification="SELECT post.*,graphics.graphic FROM post,graphics where post.id='$row_dis_not[post_id]' and post.graphic_id=graphics.id order by date desc";
+            $res_disapprove_not=mysqli_query($conn,$sql_disapprove_notification);
+            if(mysqli_num_rows($res_disapprove_not)>0){
+            $row_disapprove_not=mysqli_fetch_assoc($res_disapprove_not);
+            }
+            }
+          }
             
           ?>
 
       <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
         <i class="bi bi-bell"></i>
-        <span class="badge bg-primary badge-number"><?php echo $row1[0] ?></span>
+        <span class="badge bg-primary badge-number"><?php echo $count ?></span>
       </a><!-- End Notification Icon -->
 
       <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
         <li class="dropdown-header">
          
-          You have <span><?php echo $row1[0] ?></span> new notifications
-          <a href="approvepost.php"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+          You have <span><?php echo $count ?></span> notifications
+          <?php
+            if($count>0){
+          ?>
+          <a href="notification.php"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
         </li>
         <li>
           <hr class="dropdown-divider">
         </li>
-
-        <a href="">
+        <?php
+        if(mysqli_num_rows($res_not)>0){
+          ?>
+        <a href="notification.php">
           <li class="notification-item">
             <i class="bi bi-info-circle text-primary"></i>
             <div class="row">
@@ -77,10 +103,38 @@
         <li>
           <hr class="dropdown-divider">
         </li>
-        <li class="dropdown-footer">
-          <a href="approvepost.php">Show all notifications</a>
-        </li>
+        <?php
+        }
+        ?>
+       <?php
+           if(mysqli_num_rows($res_disapprove)>0){
+       ?> 
+        <a href="notification.php">
+          <li class="notification-item">
+            <i class="bi bi-info-circle text-primary"></i>
+            <div class="row">
+              <div class="col-md-4">
+                <img src="assets/img/<?php echo $row_disapprove_not['graphic'] ?>" class="img-fluid" alt="">
+              </div>
+              <div class="col-md-8">
+                <p><b>Disapproved</b></p>
+              </div>
+            </div>
+          </li>
+        </a>
 
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <?php
+           }
+        ?>
+        <li class="dropdown-footer">
+          <a href="notification.php">Show all notifications</a>
+        </li>
+       <?php
+            }
+       ?>
       </ul><!-- End Notification Dropdown Items -->
 
     </li><!-- End Notification Nav -->
